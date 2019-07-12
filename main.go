@@ -22,12 +22,11 @@ func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 
 // RecordWin is a function that records win in memory
 func (i *InMemoryPlayerStore) RecordWin(name string) {
-	var currentScore = i.scores[name]
-	i.scores[name] = currentScore + 1
+	i.scores[name]++
 }
 
 func main() {
-	inMemoryPlayerStore := &InMemoryPlayerStore{map[string]int{}}
+	inMemoryPlayerStore := NewInMemoryPlayerStore()
 	server := &PlayerServer{inMemoryPlayerStore}
 
 	if err := http.ListenAndServe(":5000", server); err != nil {
