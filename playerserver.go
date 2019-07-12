@@ -23,8 +23,8 @@ type Player struct {
 	Wins int
 }
 
-// ReaderSeeker interface
-type ReaderSeeker interface {
+// ReadSeeker interface
+type ReadSeeker interface {
 	Reader
 	Seeker
 }

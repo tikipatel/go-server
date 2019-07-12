@@ -37,11 +37,12 @@ func (i *InMemoryPlayerStore) RecordWin(name string) {
 
 // FileSystemPlayerStore struct
 type FileSystemPlayerStore struct {
-	database io.Reader
+	database io.ReadSeeker
 }
 
 // GetLeague implementation for file system player store
 func (f *FileSystemPlayerStore) GetLeague() League {
+	f.database.Seek(0, 0)
 	league, _ := NewLeague(f.database)
 	return league
 }
