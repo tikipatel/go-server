@@ -22,7 +22,11 @@ func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 
 // GetLeague returns a slice of players
 func (i *InMemoryPlayerStore) GetLeague() []Player {
-	return nil
+	var league []Player
+	for name, wins := range i.scores {
+		league = append(league, Player{name, wins})
+	}
+	return league
 }
 
 // RecordWin is a function that records win in memory
