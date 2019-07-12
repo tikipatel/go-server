@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 )
@@ -32,6 +34,18 @@ func (i *InMemoryPlayerStore) GetLeague() []Player {
 // RecordWin is a function that records win in memory
 func (i *InMemoryPlayerStore) RecordWin(name string) {
 	i.scores[name]++
+}
+
+// FileSystemPlayerStore struct
+type FileSystemPlayerStore struct {
+	database io.Reader
+}
+
+// GetLeague implementation for file system player store
+func (f *FileSystemPlayerStore) GetLeague() League {
+	var league []Player
+	json.NewDecoder(f.database).Decode(&league)
+	return league
 }
 
 func main() {
