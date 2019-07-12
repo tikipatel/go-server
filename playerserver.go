@@ -10,6 +10,6 @@ type PlayerStore interface {
 
 // PlayerServer is a server for players
 type PlayerServer struct {
-	store  PlayerStore
-	router *http.ServeMux
+	store PlayerStore
+	http.Handler
 }
