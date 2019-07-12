@@ -1,5 +1,7 @@
 package main
 
+import "net/http"
+
 // PlayerStore describes an interface to provide players' scores.
 type PlayerStore interface {
 	GetPlayerScore(name string) int
@@ -8,5 +10,6 @@ type PlayerStore interface {
 
 // PlayerServer is a server for players
 type PlayerServer struct {
-	store PlayerStore
+	store  PlayerStore
+	router *http.ServeMux
 }
