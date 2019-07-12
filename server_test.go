@@ -304,6 +304,5 @@ func createTempFile(t *testing.T, initialData string) (io.ReadWriteSeeker, func(
 		tempfile.Close()
 		os.Remove(tempfile.Name())
 	}
-	fmt.Printf("tempfile: %v", tempfile.Name())
 	return tempfile, removeFile
 }
