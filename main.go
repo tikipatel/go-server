@@ -1,26 +1,34 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
 
 // InMemoryPlayerStore collects data about players in memory
-type InMemoryPlayerStore struct{}
+type InMemoryPlayerStore struct {
+	scores map[string]int
+}
+
+// NewInMemoryPlayerStore returns an instance of InMemoryPlayerStore
+func NewInMemoryPlayerStore() *InMemoryPlayerStore {
+	return &InMemoryPlayerStore{map[string]int{}}
+}
 
 // GetPlayerScore retrieves scores for a given player
 func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
-	return 123
+	return i.scores[name]
 }
 
 // RecordWin is a function that records win in memory
 func (i *InMemoryPlayerStore) RecordWin(name string) {
-	fmt.Printf("Recording win for player: %s\n", name)
+	var currentScore = i.scores[name]
+	i.scores[name] = currentScore + 1
 }
 
 func main() {
-	server := &PlayerServer{&InMemoryPlayerStore{}}
+	inMemoryPlayerStore := &InMemoryPlayerStore{map[string]int{}}
+	server := &PlayerServer{inMemoryPlayerStore}
 
 	if err := http.ListenAndServe(":5000", server); err != nil {
 		log.Fatalf("could not listen on port 5000 %v", err)
