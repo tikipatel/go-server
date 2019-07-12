@@ -22,8 +22,8 @@ func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 }
 
 // GetLeague returns a slice of players
-func (i *InMemoryPlayerStore) GetLeague() []Player {
-	var league []Player
+func (i *InMemoryPlayerStore) GetLeague() League {
+	var league League
 	for name, wins := range i.scores {
 		league = append(league, Player{name, wins})
 	}
@@ -37,7 +37,7 @@ func (i *InMemoryPlayerStore) RecordWin(name string) {
 
 // FileSystemPlayerStore struct
 type FileSystemPlayerStore struct {
-	database io.ReadSeeker
+	database io.ReadWriteSeeker
 }
 
 // GetLeague implementation for file system player store
@@ -45,6 +45,23 @@ func (f *FileSystemPlayerStore) GetLeague() League {
 	f.database.Seek(0, 0)
 	league, _ := NewLeague(f.database)
 	return league
+}
+
+// GetPlayerScore from file system player store
+func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
+	var wins int
+	for _, player := range f.GetLeague() {
+		if player.Name == name {
+			wins = player.Wins
+			break
+		}
+	}
+	return wins
+}
+
+// RecordWin is a function
+func (f *FileSystemPlayerStore) RecordWin(name string) {
+
 }
 
 func main() {

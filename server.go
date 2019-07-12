@@ -29,8 +29,8 @@ func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(p.store.GetLeague())
 }
 
-func (p *PlayerServer) getLeagueTable() []Player {
-	return []Player{
+func (p *PlayerServer) getLeagueTable() League {
+	return League{
 		{"Chris", 20},
 	}
 }
