@@ -5,17 +5,6 @@ import (
 	"net/http"
 )
 
-// PlayerStore describes an interface to provide players' scores.
-type PlayerStore interface {
-	GetPlayerScore(name string) int
-	RecordWin(name string)
-}
-
-// PlayerServer is a server for players
-type PlayerServer struct {
-	store PlayerStore
-}
-
 // ServeHTTP is a function to serve HTTP content
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
@@ -35,6 +24,8 @@ func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.showScore(w, player)
 		}
 	}))
+
+	router.ServeHTTP(w, r)
 }
 
 func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {

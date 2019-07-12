@@ -21,6 +21,11 @@ func (s *StubPlayerStore) RecordWin(name string) {
 	s.winCalls = append(s.winCalls, name)
 }
 
+// // TestMain is a test function that tests main
+// func TestMain(m *testing.M) {
+// 	main()
+// }
+
 func TestGETPlayers(t *testing.T) {
 	store := StubPlayerStore{
 		map[string]int{
