@@ -18,3 +18,13 @@ func NewLeague(rdr io.Reader) (League, error) {
 	}
 	return league, err
 }
+
+// Find is a function that finds a player in a given league
+func (l League) Find(name string) *Player {
+	for i, p := range l {
+		if p.Name == name {
+			return &l[i]
+		}
+	}
+	return nil
+}

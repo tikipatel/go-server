@@ -50,14 +50,13 @@ func (f *FileSystemPlayerStore) GetLeague() League {
 
 // GetPlayerScore from file system player store
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
-	var wins int
-	for _, player := range f.GetLeague() {
-		if player.Name == name {
-			wins = player.Wins
-			break
-		}
+
+	player := f.GetLeague().Find(name)
+
+	if player != nil {
+		return player.Wins
 	}
-	return wins
+	return 0
 }
 
 // RecordWin is a function
