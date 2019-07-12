@@ -6,6 +6,7 @@ import "net/http"
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
+	GetLeague() []Player
 }
 
 // PlayerServer is a server for players
