@@ -26,7 +26,6 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 
 func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(p.getLeagueTable())
-	w.WriteHeader(http.StatusOK)
 }
 
 func (p *PlayerServer) getLeagueTable() []Player {
