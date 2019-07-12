@@ -8,13 +8,15 @@ import (
 // PlayerServer is a server that responds to HTTP requests
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
 	player := r.URL.Path[len("/players/"):]
-	var score string
+	fmt.Fprint(w, getPlayerScore(player))
+}
+
+func getPlayerScore(player string) (score string) {
 	if player == "Pepper" {
 		score = "20"
 	}
 	if player == "Floyd" {
 		score = "10"
 	}
-
-	fmt.Fprint(w, score)
+	return
 }
